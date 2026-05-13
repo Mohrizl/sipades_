@@ -12,5 +12,11 @@ app.use('/api/kontak',require('./routes/kontak.routes'));
 app.get('/api/health',(req,res)=>res.json({status:'OK'}));
 app.get('*',(req,res)=>res.sendFile(path.join(__dirname,'../public/index.html')));
 app.use((err,req,res,next)=>res.status(500).json({success:false,message:err.message}));
-const PORT=process.env.PORT||3000;
-app.listen(PORT,()=>console.log(`SIPADES running → http://localhost:${PORT}`));
+
+const PORT = process.env.PORT || 3000;
+
+if (process.env.VERCEL) {
+	module.exports = app;
+} else {
+	app.listen(PORT,()=>console.log(`SIPADES running → http://localhost:${PORT}`));
+}

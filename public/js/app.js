@@ -28,3 +28,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     Router.go('login');
   }
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('Service Worker terdaftar.'))
+      .catch(err => console.warn('Service Worker gagal terdaftar:', err));
+  });
+}
